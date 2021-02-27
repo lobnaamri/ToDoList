@@ -1,0 +1,13 @@
+
+1- install project Laravel v6
+
+2- configuration database Mysql
+
+3- pushing reposotery in github
+
+4-configuration Laravel With React js
+     "php artisan preset react"
+     "npm install"
+     "npm run dev"
+  
+
