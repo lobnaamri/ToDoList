@@ -4,17 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TodoController extends Controller
+class TodoController extends Controller    
 {
+    //auth middleware
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    public function index(Request $request, Todo $todo) {
+		// get all the Todo List based on current user id
+		$allTodoList = $todo->whereIn('user_id', $request->user())->with('user');
+		$todolist = $allTodoList->orderBy('created_at', 'desc')->take(10)->get();
+		// return json response
+		return response()->json([
+			'todolist' => $todolist,
+		]);
+	}
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +45,16 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate
+		$this->validate($request, [
+			'name' => 'required|max:255',
+		]);
+		// create a new task 
+		$todo = $request->user()->todolist()->create([
+			'name' => $request->name,
+		]);
+		// return task with user object
+		return response()->json($todo->with('user')->find($todo->id));
     }
 
     /**
