@@ -28,7 +28,8 @@ class TodoListController extends Controller
     public function store(Request $request)
     {
         //
-        return Todo::create($request->all());
+       Todo::create($request->all());
+               
     }
 
     /**
@@ -37,10 +38,10 @@ class TodoListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id)
     {
         //
-        return Todo::find($id);
+        return Todo::find($user_id);
     }
 
     /**

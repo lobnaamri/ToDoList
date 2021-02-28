@@ -22,9 +22,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace('Api')->group(function(){
 
-    Route::Resource('todoList', 'TodoListController');  
+    Route::Resource('todoList', 'TodoListController'); 
     /*Route::get('todoList', 'TodoListController@index');
     Route::post('todoList', 'TodoListController@store');
     Route::put('todoList', 'TodoListController@update');
     Route::delete('todoList', 'TodoListController@destroy');*/
 });
+
+
