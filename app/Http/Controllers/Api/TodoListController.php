@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Todo;
+use App\User;
+
 
 class TodoListController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,10 +19,25 @@ class TodoListController extends Controller
      */
     public function index()
     {
-        //
+       
         return Todo::all();
     }
 
+    public function List()
+    {
+       $user=Auth::user();
+              
+        dd($user);
+
+    }
+
+    public function ListUser(){
+
+        return $user = User::all();  
+        
+     }
+
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -27,8 +46,8 @@ class TodoListController extends Controller
      */
     public function store(Request $request)
     {
-        //
-       Todo::create($request->all());
+        // 
+      return  Todo::create($request->all());
                
     }
 
@@ -38,12 +57,21 @@ class TodoListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($user_id)
+    public function show($id)
     {
-        //
-        return Todo::find($user_id);
+        // return Todo::find($user_id);
+        $user = User::find($id);      
+        $todo = Todo::where('user_id', $user->id)->get();
+        return $todo;
     }
+    public function task($id)
+        {
 
+            //$todo=Todo::all();
+            $todo = Todo::where('id', $id)->get();
+            return $todo;
+        }
+        
     /**
      * Update the specified resource in storage.
      *

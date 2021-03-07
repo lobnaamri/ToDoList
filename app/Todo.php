@@ -8,7 +8,7 @@ class Todo extends Model
 {
     //
     protected $fillable = [
-        'name', 'completed',
+        'user_id','name', 'completed',
     ];
 
     public function user() {
