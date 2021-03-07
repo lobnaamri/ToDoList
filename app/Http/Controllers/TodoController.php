@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Todo;
 
 class TodoController extends Controller    
 {
@@ -53,7 +54,7 @@ class TodoController extends Controller
 		$todo = $request->user()->todolist()->create([
 			'name' => $request->name,
 		]);
-		// return task with user object
+		
 		return response()->json($todo->with('user')->find($todo->id));
     }
 
@@ -77,6 +78,10 @@ class TodoController extends Controller
     public function edit($id)
     {
         //
+        $todo = Todo::findOrFail($id);
+		return response()->json([
+			'todo' => $todo,
+		]);
     }
 
     /**
@@ -89,6 +94,10 @@ class TodoController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $input = $request->all();
+		$todo = Todo::findOrFail($id);
+		$todo->update($input);
+		return response()->json($todo->with('user')->find($todo->id));
     }
 
     /**
@@ -97,8 +106,7 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        Task::findOrFail($id)->delete();
     }
 }
