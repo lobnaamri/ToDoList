@@ -1,33 +1,36 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
-export default class App extends Component {
-    render() {
-        return (
-            <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <div className="card">
-                        <div className="card-header">To Do List</div>
-                        <div className="card-body">
-                            <form>
-                                <div className="form-group">
-                                    <input type="text"
-                                        className="form-control"
-                                        rows="5"
-                                        placeholder="Create a new task"
-                                        required
-                                    />
-                                </div>
-                                <button type="submit" className="btn btn-primary">
-                                    Create 
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        );
-    }
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Edit from './Edit';
+import {
+BrowserRouter as Router,
+Switch,
+Route,
+Link
+} from "react-router-dom";
+import Home from './Home';
+
+
+
+function App(){ 
+
+   
+    return ( 
+
+<Router>
+
+<Switch>
+<Route path="/home" exact component={Home}/>
+<Route path="/:id/Edit" exact component={Edit}/>
+
+
+
+</Switch>
+
+</Router>
+    );
+
+
 }
+
+export default App; 
